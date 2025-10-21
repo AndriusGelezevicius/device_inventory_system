@@ -2,3 +2,6 @@ QLabel#label_plan {
     font-size: 22px;
     font-weight: bold;
 }
+@TableWidget#table{
+    text-align: center;
+}
