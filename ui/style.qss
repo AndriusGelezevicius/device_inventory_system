@@ -2,6 +2,23 @@ QLabel#label_plan {
     font-size: 22px;
     font-weight: bold;
 }
-@TableWidget#table{
-    text-align: center;
+QTableWidget#table{
+    min-width: 100px;
+    max-width: 1000px;
+}
+QPushButton {
+    background-color: #cccac2;
+    color: #3B3635;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin-top: 40px;
+    border-radius: 8px;
+    border: 2px solid #807e78;
+    min-width: 100px;
+    max-width: 150px;
+}
+QPushButton:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid #b0b0b0;
 }
