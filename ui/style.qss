@@ -16,9 +16,27 @@ QPushButton {
     padding: 10px 20px;
     border-radius: 8px;
     border: 2px solid #807e78;
+    min-width: 10px;
+    max-width: 200px;
 
 }
 QPushButton:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid #b0b0b0;
+}
+QPushButton#export {
+    background-color: #cccac2;
+    color: #3B3635;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid #807e78;
+    min-width: 10px;
+    max-width: 50px;
+
+}
+QPushButton:hover#export {
     background-color: rgba(255, 255, 255, 0.7);
     border: 2px solid #b0b0b0;
 }
@@ -32,5 +50,5 @@ QPushButton:hover {
     border-radius: 8px;
     border: 2px solid #807e78;
     min-width: 100px;
-    max-width: 170px;
+    max-width: 200px;
 }

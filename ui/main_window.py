@@ -34,12 +34,31 @@ class MainWindow(QWidget):
         self.dropdown.setObjectName("dropdown_devices")
         self.dropdown.addItems(["Router", "Switch", "Server", "Laptop"])
 
+        self.button_summary = QPushButton("Show Summary")
+
+        self.button_new_plan = QPushButton("Upload new plan")
+
+        self.button_export_excel = QPushButton("excel")
+        self.button_export_excel.setObjectName("export")
+        self.button_export_pdf = QPushButton("pdf")
+        self.button_export_pdf.setObjectName("export")
+
         right_layout = QVBoxLayout()
         right_layout.setAlignment(Qt.AlignTop)
-        right_layout.setSpacing(10)
+        right_layout.setSpacing(20)
         right_layout.setContentsMargins(10, 40, 10, 10)
         right_layout.addWidget(self.button_add)
         right_layout.addWidget(self.dropdown)
+        right_layout.addWidget(self.button_summary)
+        right_layout.addStretch()
+        right_layout.addWidget(self.button_new_plan)
+
+        right_horizont_layout = QHBoxLayout()
+        right_horizont_layout.setSpacing(10)
+        right_horizont_layout.addWidget(self.button_export_excel)
+        right_horizont_layout.addWidget(self.button_export_pdf)
+
+        right_layout.addLayout(right_horizont_layout)
 
         # --- Main layout ---
         main_layout = QHBoxLayout()
