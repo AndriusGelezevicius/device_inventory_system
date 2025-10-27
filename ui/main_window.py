@@ -1,6 +1,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QPushButton, QLineEdit, QDateEdit, \
     QSpinBox, QTableWidgetItem, QLabel, QHeaderView, QComboBox
+from functions import add_record
 
 
 class MainWindow(QWidget):
@@ -35,9 +36,7 @@ class MainWindow(QWidget):
         self.dropdown.addItems(["Router", "Switch", "Server", "Laptop"])
 
         self.button_summary = QPushButton("Show Summary")
-
         self.button_new_plan = QPushButton("Upload new plan")
-
         self.button_export_excel = QPushButton("excel")
         self.button_export_excel.setObjectName("export")
         self.button_export_pdf = QPushButton("pdf")
@@ -67,5 +66,9 @@ class MainWindow(QWidget):
 
 
         self.setLayout(main_layout)
+
+
+        # --- Button actions ---
+        self.button_add.clicked.connect(add_record)
 
 
