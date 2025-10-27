@@ -69,6 +69,7 @@ class MainWindow(QWidget):
 
 
         # --- Button actions ---
-        self.button_add.clicked.connect(add_record)
+        self.button_add.clicked.connect(lambda: add_record(self))
+
 
 
