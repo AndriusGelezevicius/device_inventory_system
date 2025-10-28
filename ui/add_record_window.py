@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QSpinBox, QDateEdit
-from PySide6.QtCore import QDate
+from PySide6.QtCore import QDate, Qt
+
 
 class AddRecordWindow(QWidget):
     def __init__(self):
@@ -11,8 +12,8 @@ class AddRecordWindow(QWidget):
     def setup_ui(self):
         layout = QVBoxLayout()
         # --- Label ---
-        self.label_new_device = QLabel("New device")
+        self.label_new_device = QLabel("New Record")
 
+        layout.addWidget(self.label_new_device, alignment=Qt.AlignTop | Qt.AlignHCenter)
 
-        layout.addWidget(self.label_new_device)
         self.setLayout(layout)
