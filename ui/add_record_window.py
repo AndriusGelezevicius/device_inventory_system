@@ -25,7 +25,7 @@ class AddRecordWindow(QWidget):
         layout_date.addWidget(self.date_edit)
         layout_date.addStretch()
 
-        # --- Device layout
+        # --- Device layout ---
         self.label_device = QLabel("Device:")
         self.dropdown = QComboBox()
         self.dropdown.addItems(["FOD6006 Noyes", "FOD6015", "FOD6018-01", "FOD2132"])
@@ -35,6 +35,18 @@ class AddRecordWindow(QWidget):
         layout_device.addWidget(self.dropdown)
         layout_device.addStretch()
 
+        # --- Quantity layout ---
+        self.label_quantity = QLabel("Amount:")
+        self.quantity = QSpinBox()
+        self.quantity.setRange(0, 200)
+        self.quantity.setSingleStep(1)
+        self.quantity.setValue(0)
+
+        layout_quantity = QHBoxLayout()
+        layout_quantity.addWidget(self.label_quantity)
+        layout_quantity.addWidget(self.quantity)
+        layout_quantity.addStretch()
+
 
         # --- main layout ---
         main_layout = QVBoxLayout()
@@ -43,5 +55,6 @@ class AddRecordWindow(QWidget):
         main_layout.addWidget(self.label_new_device, alignment=Qt.AlignHCenter)
         main_layout.addLayout(layout_date)
         main_layout.addLayout(layout_device)
+        main_layout.addLayout(layout_quantity)
 
         self.setLayout(main_layout)
