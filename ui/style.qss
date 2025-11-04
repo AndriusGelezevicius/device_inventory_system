@@ -8,7 +8,7 @@ QTableWidget#table{
     max-width: 1000px;
 }
 
-QPushButton {
+QPushButton#main {
     background-color: #cccac2;
     color: #3B3635;
     font-size: 16px;

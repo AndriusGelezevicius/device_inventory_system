@@ -30,13 +30,17 @@ class MainWindow(QWidget):
 
         # --- Right column: button + dropdown ---
         self.button_add = QPushButton("Add Record")
+        self.button_add.setObjectName("main")
+
 
         self.dropdown = QComboBox()
         self.dropdown.setObjectName("dropdown_devices")
         self.dropdown.addItems(["Router", "Switch", "Server", "Laptop"])
 
         self.button_summary = QPushButton("Show Summary")
+        self.button_summary.setObjectName("main")
         self.button_new_plan = QPushButton("Upload new plan")
+        self.button_new_plan.setObjectName("main")
         self.button_export_excel = QPushButton("excel")
         self.button_export_excel.setObjectName("export")
         self.button_export_pdf = QPushButton("pdf")

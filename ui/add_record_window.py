@@ -48,13 +48,26 @@ class AddRecordWindow(QWidget):
         layout_quantity.addStretch()
 
 
+        # --- Buttons layout ---
+
+        self.button_cancel = QPushButton("Cancel")
+        self.button_add = QPushButton("Add")
+
+        layout_buttons = QHBoxLayout()
+        layout_buttons.addWidget(self.button_cancel)
+        layout_buttons.addWidget(self.button_add)
+
+
         # --- main layout ---
         main_layout = QVBoxLayout()
         main_layout.setAlignment(Qt.AlignTop)
         main_layout.setContentsMargins(20, 20, 20, 20)
+        main_layout.setSpacing(20)
         main_layout.addWidget(self.label_new_device, alignment=Qt.AlignHCenter)
         main_layout.addLayout(layout_date)
         main_layout.addLayout(layout_device)
         main_layout.addLayout(layout_quantity)
+        main_layout.addStretch()
+        main_layout.addLayout(layout_buttons)
 
         self.setLayout(main_layout)
