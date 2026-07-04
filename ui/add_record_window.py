@@ -28,7 +28,10 @@ class AddRecordWindow(QWidget):
         # --- Device layout ---
         self.label_device = QLabel("Device:")
         self.dropdown = QComboBox()
-        self.dropdown.addItems(["FOD6006 Noyes", "FOD6015", "FOD6018-01", "FOD2132"])
+        self.dropdown.addItems(["FOD6010", "FOD6015", "FOD6018-01", "FOD6020",
+                                "FOD6022", "FOD1212", "FOD1212 NRF", "FOD1214",
+                                "FOD1214 NRF", "FOD2127", "FOD2127 NRF", "FOD2132",
+                                "FOD2132 NRF", "FOD2133", "FOD2133 NRF"])
 
         layout_device = QHBoxLayout()
         layout_device.addWidget(self.label_device)

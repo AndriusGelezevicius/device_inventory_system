@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QPushButton, QLineEdit, QDateEdit, \
     QSpinBox, QTableWidgetItem, QLabel, QHeaderView, QComboBox
-from functions import add_record, show_summary
+from functions import add_record, show_summary, upload_new_plan
 
 
 class MainWindow(QWidget):
@@ -75,4 +75,4 @@ class MainWindow(QWidget):
         # --- Button actions ---
         self.button_add.clicked.connect(lambda: add_record(self))
         self.button_summary.clicked.connect(lambda: show_summary(self))
-
+        self.button_new_plan.clicked.connect(lambda: upload_new_plan(self))

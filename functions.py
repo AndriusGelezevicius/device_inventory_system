@@ -1,5 +1,6 @@
 from PySide6.QtCore import QDate
 from PySide6.QtGui import QTextCharFormat, QColor
+from PySide6.QtWidgets import QFileDialog
 
 
 def add_record(window):
@@ -12,3 +13,10 @@ def show_summary(window):
     window.add_window = ShowSummary()
     window.add_window.show()
 
+def upload_new_plan(window):
+    file_path, _ = QFileDialog.getOpenFileName(
+        window, "Choose excel file",
+        "",
+        "Excel files (*.xlsx"
+
+    )
