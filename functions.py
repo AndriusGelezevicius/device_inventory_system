@@ -15,8 +15,21 @@ def show_summary(window):
 
 def upload_new_plan(window):
     file_path, _ = QFileDialog.getOpenFileName(
-        window, "Choose excel file",
-        "",
-        "Excel files (*.xlsx"
+        window, "Choose Excel file",
+         "",
+        "Excel files (*.xlsx)"
 
     )
+    if not file_path:
+        return
+
+    try:
+        from openpyxl import load_workbook
+        workbook = load_workbook(file_path)
+        sheet = workbook.active
+
+# we made data list
+        rows = list(sheet.iter_rows(values_only=True))
+
+
+
