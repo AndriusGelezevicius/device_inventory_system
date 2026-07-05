@@ -1,4 +1,4 @@
-from PySide6.QtCore import QDate
+from PySide6.QtCore import QDate, Qt
 from PySide6.QtGui import QTextCharFormat, QColor
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QTableWidgetItem
 
@@ -45,7 +45,9 @@ def upload_new_plan(window):
         for row_index, row_data in enumerate(data_rows):
             for col_index, value in enumerate(row_data):
                 item = QTableWidgetItem("" if value is None else str(value))
+                item.setTextAlignment(Qt.AlignCenter)
                 window.table.setItem(row_index, col_index, item)
+
 
     except Exception as error:
         QMessageBox.critical(window, "Error", f"Could not load Excel file:\n{error}")
