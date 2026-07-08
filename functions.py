@@ -1,6 +1,8 @@
+from datetime import datetime, date
 from PySide6.QtCore import QDate, Qt
 from PySide6.QtGui import QTextCharFormat, QColor
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QTableWidgetItem
+import json
 
 
 def add_record(window):
@@ -51,3 +53,21 @@ def upload_new_plan(window):
 
     except Exception as error:
         QMessageBox.critical(window, "Error", f"Could not load Excel file:\n{error}")
+
+
+def highlight_selected_device(window, selected_device):
+    window.table.clearSelection()
+
+    for row in range(window.table.rowCount()):
+        item = window.table.item(row, 0)
+
+        if item and item.text() == selected_device:
+            window.table.selectRow(row)
+            break
+
+def load_devices():
+    try:
+        with open("data/devices.json", "r", encoding="utf-8") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
