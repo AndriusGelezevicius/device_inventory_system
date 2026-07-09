@@ -1,9 +1,10 @@
-from datetime import datetime, date
+from time import strftime
+
 from PySide6.QtCore import QDate, Qt
 from PySide6.QtGui import QTextCharFormat, QColor
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QTableWidgetItem
 import json
-
+from datetime import datetime, date
 
 def add_record(window):
     from ui.add_record_window import AddRecordWindow
@@ -46,7 +47,15 @@ def upload_new_plan(window):
 
         for row_index, row_data in enumerate(data_rows):
             for col_index, value in enumerate(row_data):
-                item = QTableWidgetItem("" if value is None else str(value))
+               # item = QTableWidgetItem("" if value is None else str(value))
+                if value is None:
+                    text = ""
+                elif isinstance(value, datetime):
+                    text = value.strftime("%d-%b")
+                else:
+                    text = str(value)
+
+                item = QTableWidgetItem(text)
                 item.setTextAlignment(Qt.AlignCenter)
                 window.table.setItem(row_index, col_index, item)
 
