@@ -2,7 +2,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QPushButton, QLineEdit, QDateEdit, \
     QSpinBox, QTableWidgetItem, QLabel, QHeaderView, QComboBox
 from functions import add_record, show_summary, upload_new_plan, highlight_selected_device
-
+from services.device_service import load_devices
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -35,10 +35,7 @@ class MainWindow(QWidget):
 
         self.dropdown = QComboBox()
         self.dropdown.setObjectName("dropdown_devices")
-        self.dropdown.addItems(["FOD6010", "FOD6015", "FOD6018-01", "FOD6020",
-                                "FOD6022", "FOD1212", "FOD1212 NRF", "FOD1214",
-                                "FOD1214 NRF", "FOD2127", "FOD2127 NRF", "FOD2132",
-                                "FOD2132 NRF", "FOD2133", "FOD2133 NRF"])
+        self.dropdown.addItems(load_devices())
 
         self.button_summary = QPushButton("Show Summary")
         self.button_summary.setObjectName("main")

@@ -65,9 +65,4 @@ def highlight_selected_device(window, selected_device):
             window.table.selectRow(row)
             break
 
-def load_devices():
-    try:
-        with open("data/devices.json", "r", encoding="utf-8") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
+

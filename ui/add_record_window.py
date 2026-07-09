@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButt
     QComboBox
 from PySide6.QtCore import QDate, Qt
 
-from functions import load_devices
+from services.device_service import load_devices
 
 
 class AddRecordWindow(QWidget):
