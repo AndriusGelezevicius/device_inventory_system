@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButt
     QComboBox
 from PySide6.QtCore import QDate, Qt
 from services.device_service import load_devices
+from services.records_service import save_record
 
 
 class AddRecordWindow(QWidget):
@@ -61,7 +62,6 @@ class AddRecordWindow(QWidget):
         layout_buttons = QHBoxLayout()
         layout_buttons.addWidget(self.button_cancel)
         layout_buttons.addWidget(self.button_add)
-        self.button_cancel.clicked.connect(self.close)
 
 
         # --- main layout ---
@@ -77,3 +77,8 @@ class AddRecordWindow(QWidget):
         main_layout.addLayout(layout_buttons)
 
         self.setLayout(main_layout)
+
+        self.button_cancel.clicked.connect(self.close)
+        self.button_add.clicked.connect(self.add_record)
+
+    def add_record(self):
