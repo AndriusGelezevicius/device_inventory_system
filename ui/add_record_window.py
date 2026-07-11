@@ -20,6 +20,8 @@ class AddRecordWindow(QWidget):
         # --- Date layout ---
         self.label_date = QLabel("Date:")
         self.date_edit = QDateEdit()
+        self.date_edit.setDate(QDate.currentDate())
+        self.date_edit.setDisplayFormat("yyyy-MM-dd")
         self.date_edit.setCalendarPopup(True)
 
         layout_date = QHBoxLayout()
