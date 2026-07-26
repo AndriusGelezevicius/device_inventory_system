@@ -4,6 +4,11 @@
             "date": "2026-07-26",
             "device": "FOD6020",
             "amount": 26
+        },
+        {
+            "date": "2026-07-26",
+            "device": "FOD6022",
+            "amount": 3
         }
     ]
 }
