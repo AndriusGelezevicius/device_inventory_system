@@ -42,8 +42,15 @@ def upload_new_plan(window):
         window.table.clear()
         window.table.setColumnCount(len(headers))
         window.table.setRowCount(len(data_rows))
-        window.table.setHorizontalHeaderLabels([str(header) for header in headers])
-#str()? Nes Excel pirmoje eilutėje teoriškai gali būti ne tekstas, o skaičius arba data. O setHorizontalHeaderLabels() nori gauti tekstų sąrašą
+
+        formatted_headers = []
+        for header in headers:
+            if isinstance(header, (datetime, date)):
+                formatted_headers.append(header.strftime("%Y-%m-%d"))
+            else:
+                formatted_headers.append(str(header))
+
+        window.table.setHorizontalHeaderLabels(formatted_headers)#str()? Nes Excel pirmoje eilutėje teoriškai gali būti ne tekstas, o skaičius arba data. O setHorizontalHeaderLabels() nori gauti tekstų sąrašą
 
         for row_index, row_data in enumerate(data_rows):
             for col_index, value in enumerate(row_data):

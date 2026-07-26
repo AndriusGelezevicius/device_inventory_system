@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QSpinBox, QDateEdit, QHBoxLayout, \
-    QComboBox
+    QComboBox, QMessageBox
 from PySide6.QtCore import QDate, Qt
 from services.device_service import load_devices
 from services.records_service import save_record
@@ -81,4 +81,32 @@ class AddRecordWindow(QWidget):
         self.button_cancel.clicked.connect(self.close)
         self.button_add.clicked.connect(self.add_record)
 
+    # --- methods ---
     def add_record(self):
+        record_date = self.date_edit.date().toString("yyyy-MM-dd")
+        device = self.dropdown.currentText()
+        amount = self.quantity.value()
+
+        if amount == 0:
+            QMessageBox.warning(
+                self,
+                "Invalid amount",
+                "Amount must be greater than zero!"
+            )
+            return
+
+        record = {
+            "date": record_date,
+            "device": device,
+            "amount": amount
+        }
+
+        save_record(record)
+
+        QMessageBox.information(
+            self,
+            "Record added",
+            f"{amount} units of {device} were added"
+        )
+
+        self.close()

@@ -1,6 +1,9 @@
 {
-  "records":
-          [
-
-          ]
+    "records": [
+        {
+            "date": "2026-07-26",
+            "device": "FOD6020",
+            "amount": 26
+        }
+    ]
 }
