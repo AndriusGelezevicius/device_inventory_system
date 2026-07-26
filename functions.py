@@ -49,8 +49,7 @@ def upload_new_plan(window):
                 formatted_headers.append(header.strftime("%Y-%m-%d"))
             else:
                 formatted_headers.append(str(header))
-
-        window.table.setHorizontalHeaderLabels(formatted_headers)#str()? Nes Excel pirmoje eilutėje teoriškai gali būti ne tekstas, o skaičius arba data. O setHorizontalHeaderLabels() nori gauti tekstų sąrašą
+        window.table.setHorizontalHeaderLabels(formatted_headers)
 
         for row_index, row_data in enumerate(data_rows):
             for col_index, value in enumerate(row_data):
@@ -59,13 +58,15 @@ def upload_new_plan(window):
                     text = ""
                 elif isinstance(value, datetime):
                     text = value.strftime("%d-%b")
+                # its for numbers in plan is integer
+                elif isinstance(value, float) and value.is_integer():
+                    text = str(int(value))
                 else:
                     text = str(value)
 
                 item = QTableWidgetItem(text)
                 item.setTextAlignment(Qt.AlignCenter)
                 window.table.setItem(row_index, col_index, item)
-
 
     except Exception as error:
         QMessageBox.critical(window, "Error", f"Could not load Excel file:\n{error}")
