@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QPushButton, QLineEdit, QDateEdit, \
     QSpinBox, QTableWidgetItem, QLabel, QHeaderView, QComboBox
-from functions import add_record, show_summary, upload_new_plan, highlight_selected_device
+from functions import add_record, show_summary, upload_new_plan, highlight_selected_device, load_saved_plan
 from services.device_service import load_devices
 
 class MainWindow(QWidget):
@@ -10,6 +10,7 @@ class MainWindow(QWidget):
         self.setWindowTitle("Device Inventory System")
         self.setFixedSize(1300, 800)
         self.setup_ui()
+        load_saved_plan(self)
 
     def setup_ui(self):
         # --- Label ---

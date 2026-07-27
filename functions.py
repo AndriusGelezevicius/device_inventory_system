@@ -1,10 +1,11 @@
 from time import strftime
-
 from PySide6.QtCore import QDate, Qt
 from PySide6.QtGui import QTextCharFormat, QColor
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QTableWidgetItem
 import json
 from datetime import datetime, date
+from services.plan_service import save_plan, load_plan
+
 
 def add_record(window):
     from ui.add_record_window import AddRecordWindow
@@ -68,8 +69,60 @@ def upload_new_plan(window):
                 item.setTextAlignment(Qt.AlignCenter)
                 window.table.setItem(row_index, col_index, item)
 
+        save_table_plan(window)
+
     except Exception as error:
         QMessageBox.critical(window, "Error", f"Could not load Excel file:\n{error}")
+
+# Takes data from the table
+def save_table_plan(window):
+    headers = []
+
+    for column in range(window.table.columnCount()):
+        header_item = window.table.horizontalHeaderItem(column)
+        headers.append(header_item.text())
+
+    rows = []
+
+    for row in range(window.table.rowCount()):
+        row_data = []
+
+        for column in range(window.table.columnCount()):
+            item = window.table.item(row, column)
+
+            if item is None:
+                row_data.append("")
+            else:
+                row_data.append(item.text())
+
+        rows.append(row_data)
+
+    save_plan(headers, rows)
+
+# Shows data from json to table
+def load_saved_plan(window):
+    plan = load_plan()
+
+    if plan is None:
+        return
+
+    headers = plan["headers"]
+    rows = plan["rows"]
+
+    window.table.setColumnCount(len(headers))
+    window.table.setRowCount(len(rows))
+    window.table.setHorizontalHeaderLabels(headers)
+
+    for row_index, row_data in enumerate(rows):
+        for column_index, value in enumerate(row_data):
+            item = QTableWidgetItem(str(value))
+            item.setTextAlignment(Qt.AlignCenter)
+
+            window.table.setItem(
+                row_index,
+                column_index,
+                item
+            )
 
 
 def highlight_selected_device(window, selected_device):
