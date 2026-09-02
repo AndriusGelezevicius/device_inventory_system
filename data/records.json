@@ -29,6 +29,36 @@
                     "amount": 18
                 }
             ]
+        },
+        {
+            "date": "2026-07-27",
+            "device": "FOD1212 NRF",
+            "amount": 10,
+            "allocations": [
+                {
+                    "target": "Skola",
+                    "amount": 10
+                }
+            ]
+        },
+        {
+            "date": "2026-07-27",
+            "device": "FOD2127 NRF",
+            "amount": 36,
+            "allocations": [
+                {
+                    "target": "Skola",
+                    "amount": 4
+                },
+                {
+                    "target": "2026-07-30",
+                    "amount": 18
+                },
+                {
+                    "target": "2026-08-06",
+                    "amount": 14
+                }
+            ]
         }
     ]
 }

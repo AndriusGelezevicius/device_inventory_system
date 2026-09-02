@@ -72,6 +72,7 @@ def upload_new_plan(window):
                 window.table.setItem(row_index, col_index, item)
 
         save_table_plan(window)
+        load_saved_plan(window)
 
     except Exception as error:
         QMessageBox.critical(window, "Error", f"Could not load Excel file:\n{error}")
@@ -152,6 +153,15 @@ def load_saved_plan(window):
 
             item = QTableWidgetItem(text)
             item.setTextAlignment(Qt.AlignCenter)
+
+            if column_index == 0:
+                font = item.font()
+                font.setBold(True)
+                item.setFont(font)
+
+                item.setBackground(
+                    QBrush(QColor("#FFD966"))
+                )
 
             if column_index > 0 and value not in ("", None):
                 if completed_amount >= planned_amount:
