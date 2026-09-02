@@ -1,10 +1,12 @@
 from time import strftime
 from PySide6.QtCore import QDate, Qt
-from PySide6.QtGui import QTextCharFormat, QColor
+from PySide6.QtGui import QTextCharFormat, QColor, QBrush
 from PySide6.QtWidgets import QFileDialog, QMessageBox, QTableWidgetItem
 import json
 from datetime import datetime, date
-from services.plan_service import save_plan, load_plan
+from collections import defaultdict
+from services.plan_service import save_plan, load_plan, convert_amount
+from services.records_service import load_records
 
 
 def add_record(window):
@@ -107,14 +109,59 @@ def load_saved_plan(window):
     headers = plan["headers"]
     rows = plan["rows"]
 
+    records = load_records()
+    completed_amounts = defaultdict(int)
+
+    for record in records:
+        device = record.get("device")
+
+        allocations = record.get("allocations", [])
+
+        for allocation in allocations:
+            target = allocation["target"]
+            amount = convert_amount(allocation["amount"])
+
+            key = (device, target)
+
+            completed_amounts[key] += amount
+
+
     window.table.setColumnCount(len(headers))
     window.table.setRowCount(len(rows))
     window.table.setHorizontalHeaderLabels(headers)
 
     for row_index, row_data in enumerate(rows):
+        device = row_data[0]
+
         for column_index, value in enumerate(row_data):
-            item = QTableWidgetItem(str(value))
+            if column_index == 0:
+                text = str(value)
+
+            elif value in ("", None):
+                text = ""
+
+            else:
+                target = str(headers[column_index])
+                planned_amount = convert_amount(value)
+                key = (device, target)
+                completed_amount = completed_amounts[key]
+                text = (
+                    f"{completed_amount} / "
+                    f"{planned_amount}"
+                )
+
+            item = QTableWidgetItem(text)
             item.setTextAlignment(Qt.AlignCenter)
+
+            if column_index > 0 and value not in ("", None):
+                if completed_amount >= planned_amount:
+                    item.setBackground(
+                        QBrush(QColor("#C6EFCE"))
+                    )
+                else:
+                    item.setBackground(
+                        QBrush(QColor("#FFC7CE"))
+                    )
 
             window.table.setItem(
                 row_index,

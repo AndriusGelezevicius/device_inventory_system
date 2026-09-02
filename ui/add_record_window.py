@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButt
 from PySide6.QtCore import QDate, Qt
 from services.device_service import load_devices
 from services.records_service import save_record
+from services.plan_service import allocate_record_to_plan
 
 
 class AddRecordWindow(QWidget):
@@ -94,11 +95,28 @@ class AddRecordWindow(QWidget):
                 "Amount must be greater than zero!"
             )
             return
+        allocations, remaining_amount = allocate_record_to_plan(
+            device,
+            record_date,
+            amount
+        )
+
+        if remaining_amount > 0:
+            QMessageBox.warning(
+                self,
+                "Not enough plan",
+                (
+                    f"{remaining_amount} units could not be "
+                    "assigned to debt or deadlines."
+                )
+            )
+            return
 
         record = {
             "date": record_date,
             "device": device,
-            "amount": amount
+            "amount": amount,
+            "allocations": allocations
         }
 
         save_record(record)
