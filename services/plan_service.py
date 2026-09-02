@@ -11,13 +11,13 @@ def convert_amount(value):
 
     return int(float(value))
 def get_completed_amounts(device):
-#suskaičiuoja jau priskirtus kiekius pagal skolą ir datas.
+# suskaičiuoja jau priskirtus kiekius pagal skolą ir datas.
 
     completed_amounts = defaultdict(int)
 
     records = load_records()
 
-    for record in records:
+    for record in records: # Paimk po vieną pridavimo įrašą iš records.json.
         if records.get("device") != device:
             continue
 
@@ -48,3 +48,18 @@ def load_plan():
 
     with open(PLAN_FILE, "r", encoding="utf-8") as file:
         return json.load(file)
+
+def get_device_plan(device):
+    plan = load_plan()
+
+    if plan is None:
+        return None, None
+
+    headers = plan["headers"]
+    rows = plan["rows"]
+
+    for row in rows:
+        if row[0] == device:
+            return headers, row
+
+    return None, None
