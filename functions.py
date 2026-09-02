@@ -77,13 +77,11 @@ def upload_new_plan(window):
 # Takes data from the table
 def save_table_plan(window):
     headers = []
-
     for column in range(window.table.columnCount()):
         header_item = window.table.horizontalHeaderItem(column)
         headers.append(header_item.text())
 
     rows = []
-
     for row in range(window.table.rowCount()):
         row_data = []
 
@@ -123,7 +121,6 @@ def load_saved_plan(window):
                 column_index,
                 item
             )
-
 
 def highlight_selected_device(window, selected_device):
     window.table.clearSelection()

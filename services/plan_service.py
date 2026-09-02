@@ -3,9 +3,15 @@ from pathlib import Path
 
 PLAN_FILE = Path("data/plan.json")
 
+def covert_amount(value):
+    if value in ("", None):
+        return 0
+
+    return int(float(value))
+
 def save_plan(headers, rows):
     data = {
-        "headers" : headers,
+        "headers": headers,
         "rows": rows
     }
 
