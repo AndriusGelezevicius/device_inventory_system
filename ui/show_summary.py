@@ -7,18 +7,23 @@ class ShowSummary(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Show Summary")
-        self.setFixedSize(600,600)
+        self.setFixedSize(400,800)
         self.setup_ui()
 
     def setup_ui(self):
         # --- Date layout ---
-        self.label_date = QLabel("Dates:")
-        self.button_choose_dates = QPushButton("Choose dates")
+        self.label_date_from = QLabel("From")
+        self.button_choose_date_from = QPushButton("Choose date")
+        self.label_date_until = QLabel("Until")
+        self.button_choose_date_until = QPushButton("Choose date")
 
-        layout_dates = QHBoxLayout()
-        layout_dates.addWidget(self.label_date)
-        layout_dates.addWidget(self.button_choose_dates)
+        layout_dates = QVBoxLayout()
+        layout_dates.addWidget(self.label_date_from)
+        layout_dates.addWidget(self.button_choose_date_from)
+        layout_dates.addWidget(self.label_date_until)
+        layout_dates.addWidget(self.button_choose_date_until)
         layout_dates.addStretch()
+
 
 
         # --- main layout ---

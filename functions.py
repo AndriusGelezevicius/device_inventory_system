@@ -160,7 +160,7 @@ def load_saved_plan(window):
                 item.setFont(font)
 
                 item.setBackground(
-                    QBrush(QColor("#FFD966"))
+                    QBrush(QColor("#cecfc8"))
                 )
 
             if column_index > 0 and value not in ("", None):

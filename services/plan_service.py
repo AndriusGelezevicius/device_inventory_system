@@ -14,9 +14,7 @@ def convert_amount(value):
     return int(float(value))
 def get_completed_amounts(device):
 # suskaičiuoja jau priskirtus kiekius pagal skolą ir datas.
-
     completed_amounts = defaultdict(int)
-
     records = load_records()
 
     for record in records: # Paimk po vieną pridavimo įrašą iš records.json.
@@ -28,7 +26,6 @@ def get_completed_amounts(device):
         for allocation in allications:
             target = allocation["target"]
             amount = convert_amount(allocation["amount"])
-
             completed_amounts[target] += amount
     return completed_amounts
 
@@ -63,7 +60,6 @@ def get_device_plan(device):
     for row in rows:
         if row[0] == device:
             return headers, row
-
     return None, None
 
 def allocate_record_to_plan(device, record_date, amount):
@@ -73,31 +69,20 @@ def allocate_record_to_plan(device, record_date, amount):
         return [], convert_amount(amount)
 
     completed_amounts = get_completed_amounts(device)
-
     remaining_amount = convert_amount(amount)
     allocations = []
 
     for column_index in range(1, len(headers)):
         header = str(headers[column_index]).strip()
-
         if header.lower() != "skola":
             continue
 
-        planned_debt = convert_amount(
-            row[column_index]
-        )
+        planned_debt = convert_amount(row[column_index])
 
         completed_debt = completed_amounts["Skola"]
+        unpaid_debt = max(planned_debt - completed_debt,0)
 
-        unpaid_debt = max(
-            planned_debt - completed_debt,
-            0
-        )
-
-        amount_for_debt = min(
-            remaining_amount,
-            unpaid_debt
-        )
+        amount_for_debt = min(remaining_amount,unpaid_debt)
 
         if amount_for_debt > 0:
             allocations.append({
@@ -106,7 +91,6 @@ def allocate_record_to_plan(device, record_date, amount):
             })
 
             remaining_amount -= amount_for_debt
-
         break
 
     if remaining_amount == 0:
@@ -121,10 +105,8 @@ def allocate_record_to_plan(device, record_date, amount):
 
     for column_index in range(1, len(headers)):
         header = str(headers[column_index]).strip()
-
         if header.lower() == "skola":
             continue
-
         try:
             deadline_date = datetime.strptime(
                 header,
@@ -134,39 +116,18 @@ def allocate_record_to_plan(device, record_date, amount):
             continue
 
         if deadline_date >= record_date_object:
-            date_columns.append(
-                (
-                    deadline_date,
-                    column_index,
-                    header
-                )
-            )
+            date_columns.append((deadline_date,column_index,header))
 
-    date_columns.sort(
-        key=lambda column: column[0]
-    )
+    date_columns.sort(key=lambda column: column[0])
 
     for deadline_date, column_index, deadline_text in date_columns:
-        planned_amount = convert_amount(
-            row[column_index]
-        )
-
+        planned_amount = convert_amount(row[column_index])
         if planned_amount == 0:
             continue
 
-        completed_amount = completed_amounts[
-            deadline_text
-        ]
-
-        available_amount = max(
-            planned_amount - completed_amount,
-            0
-        )
-
-        amount_for_deadline = min(
-            remaining_amount,
-            available_amount
-        )
+        completed_amount = completed_amounts[deadline_text]
+        available_amount = max(planned_amount - completed_amount,0)
+        amount_for_deadline = min(remaining_amount,available_amount)
 
         if amount_for_deadline > 0:
             allocations.append({
@@ -175,8 +136,6 @@ def allocate_record_to_plan(device, record_date, amount):
             })
 
             remaining_amount -= amount_for_deadline
-
         if remaining_amount == 0:
             break
-
     return allocations, remaining_amount

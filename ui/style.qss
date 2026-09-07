@@ -54,7 +54,7 @@ QComboBox#dropdown_devices {
 }
 
 QHeaderView::section {
-    background-color: #FFD966;
+    background-color: #cecfc8;
     color: #000000;
     font-weight: bold;
     padding: 6px;
