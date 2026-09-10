@@ -76,3 +76,8 @@ QLabel#selection_text{
     color: #000000;
     margin-top: 10px;
 }
+QRadioButton{
+    color: #857F7E;
+    spacing: 6px;
+    margin-right: 25px;
+}
