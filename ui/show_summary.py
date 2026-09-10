@@ -1,13 +1,14 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QSpinBox, QDateEdit, QHBoxLayout, \
-    QComboBox, QRadioButton, QButtonGroup
+    QComboBox, QRadioButton, QButtonGroup, QCheckBox, QGridLayout
 from PySide6.QtCore import QDate, Qt
+from pathlib import Path
+import json
 
 class ShowSummary(QWidget):
 
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Show Summary")
-        self.setFixedSize(400,800)
         self.setup_ui()
 
     def setup_ui(self):
@@ -57,21 +58,58 @@ class ShowSummary(QWidget):
         radio_button_layout.addWidget(self.radio_all_devices)
         radio_button_layout.addStretch()
 
+        # Choosing group
+        self.group_dropdown = QComboBox()
+        self.group_dropdown.addItems(["FS", "EXFO", "Videoprobes"])
 
+        # Choosing individual devices from json
+        self.devices_container = QWidget()
+        devices_layout = QGridLayout(self.devices_container)
 
+        devices_layout.setHorizontalSpacing(15)
+        devices_layout.setVerticalSpacing(8)
 
+        devices_path = (Path(__file__).resolve().parent.parent / "data" / "devices.json")
+        with open(devices_path, "r", encoding="utf-8") as file:
+            data = json.load(file)
 
+        devices = data["devices"]
 
+        columns = 3
+        rows = (len(devices) + columns - 1) // columns
 
+        self.device_checkbox = []
+        for index, device in enumerate(devices):
+            checkbox = QCheckBox(device)
+            row = index % rows
+            column = index // rows
 
+            devices_layout.addWidget(checkbox, row, column)
+            self.device_checkbox.append(checkbox)
 
         # --- main layout ---
         main_layout = QVBoxLayout()
         main_layout.setAlignment(Qt.AlignTop)
         main_layout.setSpacing(10)
+
         main_layout.addLayout(layout_summary)
         main_layout.addLayout(layout_dates)
         main_layout.addLayout(layout_selection)
         main_layout.addLayout(radio_button_layout)
-
+        main_layout.addWidget(self.group_dropdown)
+        main_layout.addWidget(self.devices_container)
         self.setLayout(main_layout)
+
+        # Signals
+        self.radio_group.toggled.connect(self.update_visibility)
+        self.radio_individual.toggled.connect(self.update_visibility)
+        self.radio_all_devices.toggled.connect(self.update_visibility)
+
+        self.update_visibility()
+    def update_visibility(self):
+        self.group_dropdown.setVisible(
+            self.radio_group.isChecked()
+        )
+        self.devices_container.setVisible(
+            self.radio_individual.isChecked()
+        )
