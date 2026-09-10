@@ -77,7 +77,45 @@ QLabel#selection_text{
     margin-top: 10px;
 }
 QRadioButton{
-    color: #857F7E;
     spacing: 6px;
     margin-right: 25px;
+}
+
+QPushButton#button_clear,
+QPushButton#button_calculate {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 2px 10px;
+    border-radius: 6px;
+}
+
+/* Clear */
+QPushButton#button_clear {
+    background-color: #F3F4F6;
+    color: #374151;
+    border: 1px solid #D1D5DB;
+}
+
+QPushButton#button_clear:hover {
+    background-color: #E5E7EB;
+}
+
+QPushButton#button_clear:pressed {
+    background-color: #D1D5DB;
+}
+
+/* Calculate */
+QPushButton#button_calculate {
+    background-color: #2563EB;
+    color: white;
+    border: 1px solid #2563EB;
+}
+
+QPushButton#button_calculate:hover {
+    background-color: #1D4ED8;
+}
+
+QPushButton#button_calculate:pressed {
+    background-color: #1E40AF;
 }
