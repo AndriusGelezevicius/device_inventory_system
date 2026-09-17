@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QSpinBox, QDateEdit, QHBoxLayout, \
-    QComboBox, QRadioButton, QButtonGroup, QCheckBox, QGridLayout
+    QComboBox, QRadioButton, QButtonGroup, QCheckBox, QGridLayout, QFrame, QTableWidget, QHeaderView
 from PySide6.QtCore import QDate, Qt
 from pathlib import Path
 import json
@@ -96,6 +96,66 @@ class ShowSummary(QWidget):
         button_layout.addWidget(self.button_clear)
         button_layout.addWidget(self.button_calculate)
 
+        # --- Results container ---
+        self.results_container = QWidget()
+        results_layout = QVBoxLayout(self.results_container)
+        results_layout.setContentsMargins(0, 0, 0, 0)
+
+        # line
+        self.results_line = QFrame()
+        self.results_line.setFrameShape(QFrame.HLine)
+        self.results_line.setObjectName("results_line")
+        self.results_line.setFixedHeight(1)
+
+
+        results_label_layout = QHBoxLayout()
+        self.results_label = QLabel("Results")
+        self.results_label.setObjectName("result_label")
+        self.results_total_label = QLabel("Total delivered")
+
+
+        results_info_layout = QHBoxLayout()
+        # time period
+        self.results_period = QLabel(":xxx")
+        self.results_period.setObjectName("results_period")
+        # total devices
+        self.results_total = QLabel("xxx")
+        self.results_total.setObjectName("results_total")
+
+        # table
+        self.results_table = QTableWidget(0, 2)
+        self.results_table.setObjectName("results_table")
+        self.results_table.setHorizontalHeaderLabels(["Device", "Delivered"])
+
+        self.results_table.verticalHeader().hide()
+        # Pirmas stulpelis užima likusį plotį
+        header = self.results_table.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
+
+        results_layout.addWidget(self.results_line)
+        results_layout.addSpacing(10)
+
+        results_label_layout.addWidget(self.results_label)
+        results_label_layout.addStretch()  # Užpildo tarpą tarp tekstų
+        results_label_layout.addWidget(self.results_total_label)
+
+        # Rezultatų vartotojas neturi redaguoti
+        self.results_table.setEditTriggers(
+            QTableWidget.EditTrigger.NoEditTriggers
+        )
+        results_info_layout.addWidget(self.results_period)
+        results_info_layout.addStretch()  # Užpildo tarpą tarp tekstų
+        results_info_layout.addWidget(self.results_total)
+
+        results_layout.addLayout(results_label_layout)
+        results_layout.addLayout(results_info_layout)
+        results_layout.addWidget(self.results_table)
+
+
+        #self.results_container.hide()
+
+
 
 
         # --- main layout ---
@@ -110,13 +170,23 @@ class ShowSummary(QWidget):
         main_layout.addWidget(self.group_dropdown)
         main_layout.addWidget(self.devices_container)
         main_layout.addLayout(button_layout)
+        main_layout.addSpacing(10)
+
+        main_layout.addWidget(self.results_container)
+
         self.setLayout(main_layout)
+
+
+
+
 
         # Signals
         self.radio_group.toggled.connect(self.update_visibility)
         self.radio_individual.toggled.connect(self.update_visibility)
         self.radio_all_devices.toggled.connect(self.update_visibility)
         self.update_visibility()
+
+
 
 
 
