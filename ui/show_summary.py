@@ -20,9 +20,19 @@ class ShowSummary(QWidget):
 
         # --- Date layout ---
         self.label_date_from = QLabel("From")
-        self.button_choose_date_from = QPushButton("Choose date")
+        self.date_from = QDateEdit()
+        self.date_from.setCalendarPopup(True)
+        self.date_from.setDisplayFormat("yyyy-MM-dd")
+
+        today = QDate.currentDate()
+        self.date_from.setDate(QDate(today.year(), today.month(), 1))
+
         self.label_date_until = QLabel("Until")
-        self.button_choose_date_until = QPushButton("Choose date")
+        self.date_until = QDateEdit()
+        self.date_until.setCalendarPopup(True)
+        self.date_until.setDisplayFormat("yyyy-MM-dd")
+        self.date_until.setDate(today)
+
 
         layout_summary = QVBoxLayout()
         layout_summary.addWidget(self.label_summary)
@@ -30,9 +40,9 @@ class ShowSummary(QWidget):
 
         layout_dates = QHBoxLayout()
         layout_dates.addWidget(self.label_date_from)
-        layout_dates.addWidget(self.button_choose_date_from)
+        layout_dates.addWidget(self.date_from)
         layout_dates.addWidget(self.label_date_until)
-        layout_dates.addWidget(self.button_choose_date_until)
+        layout_dates.addWidget(self.date_until)
         layout_dates.addStretch()
 
         #  --- selection area ---
