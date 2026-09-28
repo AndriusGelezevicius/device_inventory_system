@@ -1,5 +1,5 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QTableWidget, QHeaderView
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QTableWidget, QHeaderView, QHBoxLayout, QPushButton
 
 
 class ManageDevices(QWidget):
@@ -23,12 +23,18 @@ class ManageDevices(QWidget):
             QHeaderView.Stretch
         )
 
+        self.button_add = QPushButton("Add device")
+        self.button_add.setObjectName("button_calculate")
 
+        self.button_cancel = QPushButton("Cancel")
+        self.button_cancel.setObjectName("button_clear")
 
+        layout_buttons = QHBoxLayout()
+        layout_buttons.addWidget(self.button_add)
+        layout_buttons.addWidget(self.button_cancel)
 
         main_layout.addWidget(self.devices_table)
-
-
+        main_layout.addLayout(layout_buttons)
 
 
         self.setLayout(main_layout)
