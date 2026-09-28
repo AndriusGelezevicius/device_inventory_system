@@ -1,5 +1,5 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QTableWidget
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QTableWidget, QHeaderView
 
 
 class ManageDevices(QWidget):
@@ -7,16 +7,28 @@ class ManageDevices(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Manage devices")
-        self.setFixedSize(300,400)
+        #self.setFixedSize(300,400)
         self.setup_ui()
 
     def setup_ui(self):
-        # self.label_new_device = QLabel("Devices")
-        # self.label_new_device.setAlignment(Qt.AlignHCenter)
-        #
-        # main_layout = QVBoxLayout()
-        # main_layout.addWidget(self.label_new_device, alignment=Qt.AlignHCenter)
-        # self.setLayout(main_layout)
+
+        main_layout = QVBoxLayout()
 
         self.devices_table = QTableWidget()
+        self.devices_table.setColumnCount(2)
+        self.devices_table.setHorizontalHeaderLabels(["Device", "Group"])
+        self.devices_table.verticalHeader().hide()
+        # Abu stulpeliai vienodai užpildo lentelės plotį
+        self.devices_table.horizontalHeader().setSectionResizeMode(
+            QHeaderView.Stretch
+        )
 
+
+
+
+        main_layout.addWidget(self.devices_table)
+
+
+
+
+        self.setLayout(main_layout)
