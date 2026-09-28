@@ -1,6 +1,8 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QTableWidget, QHeaderView, QHBoxLayout, QPushButton
 
+from functions import new_device
+
 
 class ManageDevices(QWidget):
 
@@ -38,3 +40,6 @@ class ManageDevices(QWidget):
 
 
         self.setLayout(main_layout)
+
+        # --- Button actions ---
+        self.button_add.clicked.connect(lambda: new_device(self))

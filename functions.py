@@ -24,6 +24,10 @@ def manage_devices(window):
     window.add_window = ManageDevices()
     window.add_window.show()
 
+def new_device(window):
+    from ui.new_device import NewDevice
+    window.add_window = NewDevice()
+    window.add_window.show()
 def upload_new_plan(window):
     file_path, _ = QFileDialog.getOpenFileName(
         window, "Choose Excel file",
