@@ -19,6 +19,11 @@ def show_summary(window):
     window.add_window = ShowSummary()
     window.add_window.show()
 
+def manage_devices(window):
+    from ui.manage_devices import ManageDevices
+    window.add_window = ManageDevices()
+    window.add_window.show()
+
 def upload_new_plan(window):
     file_path, _ = QFileDialog.getOpenFileName(
         window, "Choose Excel file",

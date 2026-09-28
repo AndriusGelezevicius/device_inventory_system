@@ -1,7 +1,8 @@
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, QPushButton, QLineEdit, QDateEdit, \
     QSpinBox, QTableWidgetItem, QLabel, QHeaderView, QComboBox
-from functions import add_record, show_summary, upload_new_plan, highlight_selected_device, load_saved_plan
+from functions import add_record, show_summary, upload_new_plan, highlight_selected_device, load_saved_plan, \
+    manage_devices
 from services.device_service import load_devices
 
 class MainWindow(QWidget):
@@ -37,9 +38,12 @@ class MainWindow(QWidget):
         self.dropdown = QComboBox()
         self.dropdown.setObjectName("dropdown_devices")
         self.dropdown.addItems(load_devices())
-
         self.button_summary = QPushButton("Show Summary")
         self.button_summary.setObjectName("main")
+
+        self.button_manage_devices = QPushButton("Manage devices")
+        self.button_manage_devices.setObjectName("main")
+
         self.button_new_plan = QPushButton("Upload new plan")
         self.button_new_plan.setObjectName("main")
         self.button_export_excel = QPushButton("excel")
@@ -55,6 +59,8 @@ class MainWindow(QWidget):
         right_layout.addWidget(self.dropdown)
         right_layout.addWidget(self.button_summary)
         right_layout.addStretch()
+        right_layout.addWidget(self.button_manage_devices)
+
         right_layout.addWidget(self.button_new_plan)
 
         right_horizont_layout = QHBoxLayout()
@@ -78,3 +84,4 @@ class MainWindow(QWidget):
         self.button_summary.clicked.connect(lambda: show_summary(self))
         self.button_new_plan.clicked.connect(lambda: upload_new_plan(self))
         self.dropdown.currentTextChanged.connect(lambda selected_device: highlight_selected_device(self, selected_device))
+        self.button_manage_devices.clicked.connect(lambda: manage_devices(self))
